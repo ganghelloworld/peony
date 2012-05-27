@@ -1,6 +1,8 @@
 #include "config.h"
 #include "httpd.h"
 #include "utility.h"
+#include "request.h"
+//#include "response.h"
 
 #include <cstring>
 #include <string>
@@ -50,7 +52,10 @@ void Httpd::loop()
 	bzero(buffer, 256);
 	int n = read(cli_sockfd, buffer, 255);
 	require(n >= 0, "Failed read");
-	cout << buffer << endl;
+	//cout << buffer << endl;
+
+	Request request(buffer);
+
 	string response = "HTTP/1.1 200 OK\n";
 	string content = "Hello Gang!";
 	response += "Date: Sat, 26 May 2012 08:55:26 GMT\n";

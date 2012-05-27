@@ -3,11 +3,17 @@
 #
 
 OBJ = main 
+CommonHeader = config.h utility.h constants.h
 
 all: $(OBJ)
 	
-main: httpd.o utility.o
-httpd.o: httpd.h utility.h config.h
+main: httpd.o utility.o request.o
+
+httpd.o: httpd.h $(CommonHeader)
+
+request.o: request.h $(CommonHeader)
+response.o: response.h $(CommonHeader)
+
 utility.o: utility.h
 
 clean:
