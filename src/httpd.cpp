@@ -1,4 +1,5 @@
 #include "config.h"
+#include "constants.h"
 #include "httpd.h"
 #include "utility.h"
 #include "request.h"
@@ -43,29 +44,33 @@ void Httpd::loop()
 	ret = bind(sock_fd, (struct sockaddr *)&serv_addr, sizeof(struct sockaddr_in));
 	require(ret >= 0, "Failed bind");
 	listen(sock_fd, 5);
-	
-	socklen_t cli_len = sizeof(cli_addr);
-	int cli_sockfd = accept(sock_fd, (struct sockaddr *)&cli_addr, &cli_len);
-	require(cli_sockfd >= 0, "Failed accept");
+	char buffer[REQUEST_LEN];
+	while(1)	
+	{
+		socklen_t cli_len = sizeof(cli_addr);
+		int cli_sockfd = accept(sock_fd, (struct sockaddr *)&cli_addr, &cli_len);
+		require(cli_sockfd >= 0, "Failed accept");
 
-	char buffer[256];
-	bzero(buffer, 256);
-	int n = read(cli_sockfd, buffer, 255);
-	require(n >= 0, "Failed read");
-	//cout << buffer << endl;
+		bzero(buffer, REQUEST_LEN);
+		int n = read(cli_sockfd, buffer, REQUEST_LEN-1);
+		require(n >= 0, "Failed read");
+		cout << "request len = " << n << endl;
+		cout << buffer << endl;
 
-	Request request(buffer);
+		string temp(buffer, n);
+		HttpRequest request(temp);
 
-	string response = "HTTP/1.1 200 OK\n";
-	string content = "Hello Gang!";
-	response += "Date: Sat, 26 May 2012 08:55:26 GMT\n";
-	response += "Server: Peony/0.1\n";
-	response += "Content-Length: " + int2string(content.length()) + "\n";
-	response += "Keep-Alive: timeout=5, max=100\nConnection: Keep-Alive\n";
-	response += "Content-Type: text/html\n\n";
-	response += content;
-	n = write(cli_sockfd, response.c_str(), response.length());
-	close(cli_sockfd);
+		string response = "HTTP/1.1 200 OK\n";
+		string content = "Hello Gang!";
+		response += "Date: Sat, 26 May 2012 08:55:26 GMT\n";
+		response += "Server: Peony/0.1\n";
+		response += "Content-Length: " + int2string(content.length()) + "\n";
+		response += "Keep-Alive: timeout=5, max=100\nConnection: Keep-Alive\n";
+		response += "Content-Type: text/html\n\n";
+		response += content;
+		n = write(cli_sockfd, response.c_str(), response.length());
+		close(cli_sockfd);
+	}
 	close(sock_fd);
 }
 
