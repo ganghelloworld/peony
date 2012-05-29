@@ -14,5 +14,8 @@
 #vim swap file
 *.swp
 
+#ctags file
+tags
+
 #binary
 main
