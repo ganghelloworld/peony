@@ -14,6 +14,8 @@ private:
 	std::string method;
 	std::string request_url;
 	std::string http_version;
+	std::string host;
+	std::string port;
 };
 
 class RequestHeader
@@ -50,11 +52,11 @@ class HttpRequest
 public:
 	HttpRequest(){};
 	HttpRequest(std::string &src);
-
+	void init(std::string &src);
 private:
 	RequestLine request_line;
 	GeneralHeader general_header;
-	RequestHeader general_header;
+	RequestHeader request_header;
 	std::string _message_body;
 };
 

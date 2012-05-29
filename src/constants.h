@@ -41,6 +41,11 @@ namespace Request
 		static const std::string CONNECT = "CONNECT";
 		static const std::string TOKEN  = "extension-method";
 	}
+	static const std::string Methods[9] = {Method::OPTIONS, Method::GET, Method::HEAD, 
+											Method::POST, Method::PUT, Method::DELETE, 
+											Method::TRACE, Method::CONNECT, Method::TOKEN};
+	static const std::string HOST = "Host";
+
 	namespace Header
 	{
 
