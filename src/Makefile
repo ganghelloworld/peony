@@ -7,7 +7,7 @@ CommonHeader = config.h utility.h constants.h
 
 all: $(OBJ)
 	
-main: httpd.o utility.o request.o general.o
+main: httpd.o utility.o request.o response.o general.o
 
 httpd.o: httpd.h $(CommonHeader)
 

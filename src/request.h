@@ -9,7 +9,8 @@ class RequestLine
 public:
 	RequestLine(){};
 	RequestLine(std::string &src, int &index);
-	bool init(std::string &src, int &index);
+	bool parse(std::string &src, int &index);
+	~RequestLine(){};
 	
 	friend std::ostream& operator <<(std::ostream &out, RequestLine& rl);
 private:
@@ -25,7 +26,8 @@ class RequestHeader
 public:
 	RequestHeader(){};
 	RequestHeader(std::string &src, int &index);
-	bool init(std::string &src, int &index);
+	bool parse(std::string &src, int &index);
+	~RequestHeader(){};
 	friend std::ostream& operator <<(std::ostream &out, RequestHeader& rh);
 
 private:
@@ -55,7 +57,8 @@ class HttpRequest
 public:
 	HttpRequest(){};
 	HttpRequest(std::string &src);
-	bool init(std::string &src);
+	bool parse(std::string &src);
+	~HttpRequest(){};
 
 	friend std::ostream& operator <<(std::ostream &out, HttpRequest& hr);
 private:

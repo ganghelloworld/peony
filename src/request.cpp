@@ -8,19 +8,19 @@ using namespace std;
 
 HttpRequest::HttpRequest(string &src) : valid(false)
 {
-	valid = init(src);
+	valid = parse(src);
 }
-bool HttpRequest::init(string &src)
+bool HttpRequest::parse(string &src)
 {
 	int index = 0;
 	string_trim_header(src);
-	if(!request_line.init(src, index)) return false;
+	if(!request_line.parse(src, index)) return false;
 	cout << request_line;
 
-	general_header.init(src, index);
+	general_header.parse(src, index);
 	cout << general_header;
 
-	request_header.init(src, index);
+	request_header.parse(src, index);
 	cout << request_header;
 	return true;
 }
@@ -32,16 +32,16 @@ std::ostream& operator <<(std::ostream &out, HttpRequest& hr)
 
 RequestLine::RequestLine(std::string &src, int &index)
 {
-	init(src, index);
+	parse(src, index);
 }
-bool RequestLine::init(std::string &src, int &index)
+bool RequestLine::parse(std::string &src, int &index)
 {
 	int i = 0;
 	string_cut(src, index, method, Message::SP);
 	string_cut(src, index, request_url, Message::SP);
 	string_cut(src, index, http_version, Message::CRLF);
 
-	get_value(src, index, host, Request::HOST);
+	get_value(src, index, host, Request::Host);
 	return true;
 }
 std::ostream& operator <<(std::ostream &out, RequestLine& rl)
@@ -56,29 +56,29 @@ std::ostream& operator <<(std::ostream &out, RequestLine& rl)
 
 RequestHeader::RequestHeader(string &src, int &index)
 {
-	init(src, index);
+	parse(src, index);
 }
-bool RequestHeader::init(string &src, int &index)
+bool RequestHeader::parse(string &src, int &index)
 {
-	get_value(src, index, accept, Request::Header::accept);
-	get_value(src, index, accept_charset, Request::Header::accept_charset);
-	get_value(src, index, accept_encoding, Request::Header::accept_encoding);
-	get_value(src, index, accept_language, Request::Header::accept_language);
-	get_value(src, index, authorization, Request::Header::authorization);
-	get_value(src, index, expect, Request::Header::expect);
-	get_value(src, index, from, Request::Header::from);
-	get_value(src, index, host, Request::Header::host);
-	get_value(src, index, if_match, Request::Header::if_match);
-	get_value(src, index, if_modified_since, Request::Header::if_modified_since);
-	get_value(src, index, if_none_match, Request::Header::if_none_match);
-	get_value(src, index, if_range, Request::Header::if_range);
-	get_value(src, index, if_unmodified_since, Request::Header::if_unmodified_since);
-	get_value(src, index, max_forwards, Request::Header::max_forwards);
-	get_value(src, index, proxy_authorization, Request::Header::proxy_authorization);
-	get_value(src, index, range, Request::Header::range);
-	get_value(src, index, referer, Request::Header::referer);
-	get_value(src, index, te, Request::Header::te);
-	get_value(src, index, user_agent, Request::Header::user_agent);
+	get_value(src, index, accept, Request::Header::Accept);
+	get_value(src, index, accept_charset, Request::Header::Accept_Charset);
+	get_value(src, index, accept_encoding, Request::Header::Accept_Encoding);
+	get_value(src, index, accept_language, Request::Header::Accept_Language);
+	get_value(src, index, authorization, Request::Header::Authorization);
+	get_value(src, index, expect, Request::Header::Expect);
+	get_value(src, index, from, Request::Header::From);
+	get_value(src, index, host, Request::Header::Host);
+	get_value(src, index, if_match, Request::Header::If_Match);
+	get_value(src, index, if_modified_since, Request::Header::If_Modified_Since);
+	get_value(src, index, if_none_match, Request::Header::If_None_Match);
+	get_value(src, index, if_range, Request::Header::If_Range);
+	get_value(src, index, if_unmodified_since, Request::Header::If_Unmodified_Since);
+	get_value(src, index, max_forwards, Request::Header::Max_Forwards);
+	get_value(src, index, proxy_authorization, Request::Header::Proxy_Authorization);
+	get_value(src, index, range, Request::Header::Range);
+	get_value(src, index, referer, Request::Header::Referer);
+	get_value(src, index, te, Request::Header::Te);
+	get_value(src, index, user_agent, Request::Header::User_Agent);
 }
 std::ostream& operator <<(std::ostream &out, RequestHeader& rh)
 {

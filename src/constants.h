@@ -2,79 +2,82 @@
 #define CONSTANS_H
 
 #include <iostream>
-
-const int REQUEST_LEN = 1024;
+#include "response.h"
 
 namespace Message
 {
-	static const char CR = '\r';
-	static const char LF = '\n';
-	static const char SP = ' ';
-	static const char HT = '\t';
-	static const std::string CRLF = "\r\n";
-	static const char COLON = ':';
+	const char CR = '\r';
+	const char LF = '\n';
+	const char SP = ' ';
+	const char HT = '\t';
+	const std::string CRLF = "\r\n";
+	const char COLON = ':';
 }
 
 namespace General
 {
 	namespace Header
 	{
-		static const std::string cache_control = "Cache-Control";
-		static const std::string connection = "Connection";
-		static const std::string date = "Date";
-		static const std::string pragma = "Pragma";
-		static const std::string trailer = "Trailer";
-		static const std::string transfer_encoding = "Transfer-Encoding";
-		static const std::string upgrade = "Upgrade";
-		static const std::string via = "Via";
-		static const std::string warning = "Warning";
+		const std::string Cache_Control = "Cache-Control";
+		const std::string Connection = "Connection";
+		const std::string Date = "Date";
+		const std::string Pragma = "Pragma";
+		const std::string Trailer = "Trailer";
+		const std::string Transfer_Encoding = "Transfer-Encoding";
+		const std::string Upgrade = "Upgrade";
+		const std::string Via = "Via";
+		const std::string Warning = "Warning";
 	}
 }
 
 namespace Request
 {
+	const int REQUEST_LEN = 1024;
 	namespace Method 
 	{
-		static const std::string OPTIONS = "OPTIONS";
-		static const std::string GET = "GET";
-		static const std::string HEAD = "HEAD";
-		static const std::string POST = "POST";
-		static const std::string PUT = "PUT";
-		static const std::string DELETE = "DELETE";
-		static const std::string TRACE = "TRACE";
-		static const std::string CONNECT = "CONNECT";
-		static const std::string TOKEN  = "extension-method";
+		const std::string Options = "OPTIONS";
+		const std::string Get = "GET";
+		const std::string Head = "HEAD";
+		const std::string Post = "POST";
+		const std::string Put = "PUT";
+		const std::string Delete = "DELETE";
+		const std::string Trace = "TRACE";
+		const std::string Connect = "CONNECT";
+		const std::string Token = "extension-method";
 	}
-	static const int Methods_NUM = 9;
-	static const std::string Methods[Methods_NUM] = {Method::OPTIONS, Method::GET, Method::HEAD, 
-											Method::POST, Method::PUT, Method::DELETE, 
-											Method::TRACE, Method::CONNECT, Method::TOKEN};
-	static const std::string HOST = "Host";
+	const int METHODS_NUM = 9;
+	const std::string Methods[METHODS_NUM] = {Method::Options, Method::Get, Method::Head, 
+											Method::Post, Method::Put, Method::Delete, 
+											Method::Trace, Method::Connect, Method::Token};
+	const std::string Host = "Host";
 
 	namespace Header
 	{
-		static const std::string accept = "Accept";
-		static const std::string accept_charset = "Accept-Charset";
-		static const std::string accept_encoding = "Accept-Encoding";
-		static const std::string accept_language = "Accept-Language";
-		static const std::string authorization = "Authorization";
-		static const std::string expect = "Expect";
-		static const std::string from = "From";
-		static const std::string host = "Host";
-		static const std::string if_match = "If-Match";
-		static const std::string if_modified_since = "If-Modified-Since";
-		static const std::string if_none_match = "If-None-Match";
-		static const std::string if_range = "If-Range";
-		static const std::string if_unmodified_since = "If-Unmodified-Since";
-		static const std::string max_forwards = "Max-Forwards";
-		static const std::string proxy_authorization = "Proxy-Authorization";
-		static const std::string range = "Range";
-		static const std::string referer= "Referer";
-		static const std::string te = "Te";
-		static const std::string user_agent = "User-Agent";
+		const std::string Accept = "Accept";
+		const std::string Accept_Charset = "Accept-Charset";
+		const std::string Accept_Encoding = "Accept-Encoding";
+		const std::string Accept_Language = "Accept-Language";
+		const std::string Authorization = "Authorization";
+		const std::string Expect = "Expect";
+		const std::string From = "From";
+		const std::string Host = "Host";
+		const std::string If_Match = "If-Match";
+		const std::string If_Modified_Since = "If-Modified-Since";
+		const std::string If_None_Match = "If-None-Match";
+		const std::string If_Range = "If-Range";
+		const std::string If_Unmodified_Since = "If-Unmodified-Since";
+		const std::string Max_Forwards = "Max-Forwards";
+		const std::string Proxy_Authorization = "Proxy-Authorization";
+		const std::string Range = "Range";
+		const std::string Referer= "Referer";
+		const std::string Te = "Te";
+		const std::string User_Agent = "User-Agent";
 	}
 }
-
+namespace StatusCode
+{
+	const ResponseStatusCode OK = {200, "OK"};
+}
 namespace Response
 {
 }

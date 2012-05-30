@@ -9,20 +9,24 @@ using namespace std;
 
 GeneralHeader::GeneralHeader(string &src, int &index)
 {
-	init(src, index);
+	parse(src, index);
 }
 
-void GeneralHeader::init(string &src, int &index)
+void GeneralHeader::parse(string &src, int &index)
 {
-	get_value(src, index, cache_control, General::Header::cache_control);
-	get_value(src, index, connection, General::Header::connection);
-	get_value(src, index, date, General::Header::date);
-	get_value(src, index, pragma, General::Header::pragma);
-	get_value(src, index, trailer, General::Header::trailer);
-	get_value(src, index, transfer_encoding, General::Header::transfer_encoding);
-	get_value(src, index, upgrade, General::Header::upgrade);
-	get_value(src, index, via, General::Header::via);
-	get_value(src, index, warning, General::Header::warning);
+	get_value(src, index, cache_control, General::Header::Cache_Control);
+	get_value(src, index, connection, General::Header::Connection);
+	get_value(src, index, date, General::Header::Date);
+	get_value(src, index, pragma, General::Header::Pragma);
+	get_value(src, index, trailer, General::Header::Trailer);
+	get_value(src, index, transfer_encoding, General::Header::Transfer_Encoding);
+	get_value(src, index, upgrade, General::Header::Upgrade);
+	get_value(src, index, via, General::Header::Via);
+	get_value(src, index, warning, General::Header::Warning);
+}
+
+string GeneralHeader::compose()
+{
 }
 
 ostream& operator << (std::ostream& out, GeneralHeader &gh)

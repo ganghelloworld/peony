@@ -8,7 +8,9 @@ class GeneralHeader
 public:
 	GeneralHeader(){};
 	GeneralHeader(std::string &src, int &index);
-	void init(std::string &src, int &index);
+	void parse(std::string &src, int &index);
+	std::string compose();
+	~GeneralHeader(){};
 	
 	friend std::ostream& operator << (std::ostream&, GeneralHeader&);
 private:
