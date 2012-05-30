@@ -9,7 +9,8 @@ public:
 	GeneralHeader(){};
 	GeneralHeader(std::string &src, int &index);
 	void init(std::string &src, int &index);
-
+	
+	friend std::ostream& operator << (std::ostream&, GeneralHeader&);
 private:
 	std::string cache_control;
 	std::string connection;

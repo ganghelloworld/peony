@@ -59,6 +59,7 @@ void Httpd::loop()
 
 		string temp(buffer, n);
 		HttpRequest request(temp);
+		//cout << request;
 
 		string response = "HTTP/1.1 200 OK\n";
 		string content = "Hello Gang!";
@@ -70,6 +71,7 @@ void Httpd::loop()
 		response += content;
 		n = write(cli_sockfd, response.c_str(), response.length());
 		close(cli_sockfd);
+		break;
 	}
 	close(sock_fd);
 }

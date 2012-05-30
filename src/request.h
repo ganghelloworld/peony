@@ -1,6 +1,7 @@
 #ifndef REQUEST_H
 #define REQUEST_H
 
+#include "general.h"
 #include <iostream>
 
 class RequestLine
@@ -8,8 +9,9 @@ class RequestLine
 public:
 	RequestLine(){};
 	RequestLine(std::string &src, int &index);
-	void init(std::string &src, int &index);
-
+	bool init(std::string &src, int &index);
+	
+	friend std::ostream& operator <<(std::ostream &out, RequestLine& rl);
 private:
 	std::string method;
 	std::string request_url;
@@ -23,7 +25,8 @@ class RequestHeader
 public:
 	RequestHeader(){};
 	RequestHeader(std::string &src, int &index);
-	void init(std::string &src, int &index);
+	bool init(std::string &src, int &index);
+	friend std::ostream& operator <<(std::ostream &out, RequestHeader& rh);
 
 private:
 	std::string accept;
@@ -52,8 +55,11 @@ class HttpRequest
 public:
 	HttpRequest(){};
 	HttpRequest(std::string &src);
-	void init(std::string &src);
+	bool init(std::string &src);
+
+	friend std::ostream& operator <<(std::ostream &out, HttpRequest& hr);
 private:
+	bool valid;
 	RequestLine request_line;
 	GeneralHeader general_header;
 	RequestHeader request_header;
