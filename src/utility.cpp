@@ -1,7 +1,9 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <cstring>
 #include "utility.h"
+#include "config.h"
 
 using namespace std;
 
@@ -53,3 +55,23 @@ void string_trim_header(std::string& src)
 	src = src.substr(pos-1);
 }
 
+HttpVersion::HttpVersion(string src)
+{
+	int pos = src.find('/');
+	name = src.substr(0, pos);
+	src = src.substr(pos+1);
+	pos = src.find(':');
+	major = atoi(src.substr(0, pos).c_str());
+	minor = atoi(src.substr(pos+1).c_str());
+}
+int HttpVersion::compare(HttpVersion& hv)
+{
+	if(major < hv.major) return -1;
+	else if(major == hv.major)
+	{
+		if(minor < hv.minor) return -1;
+		else if(minor == hv.minor) return 0;
+		else return 1;
+	}
+	else return 1;
+}

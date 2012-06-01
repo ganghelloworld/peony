@@ -3,6 +3,7 @@
 
 #include "general.h"
 #include <iostream>
+#include "response.h"
 
 class RequestLine
 {
@@ -13,6 +14,8 @@ public:
 	~RequestLine(){};
 	
 	friend std::ostream& operator <<(std::ostream &out, RequestLine& rl);
+	friend class HttpResponse;
+	friend class ResponseStatusLine;
 private:
 	std::string method;
 	std::string request_url;
@@ -61,6 +64,8 @@ public:
 	~HttpRequest(){};
 
 	friend std::ostream& operator <<(std::ostream &out, HttpRequest& hr);
+	friend class HttpResponse;
+	friend class ResponseStatusLine;
 private:
 	bool valid;
 	RequestLine request_line;

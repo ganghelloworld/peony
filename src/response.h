@@ -1,8 +1,12 @@
 #ifndef RESPONSE_H
 #define RESPONSE_H
 #include <iostream>
+#include <fstream>
 #include "request.h"
 #include "general.h"
+
+class HttpRequest;
+
 
 struct ResponseStatusCode
 {
@@ -14,18 +18,23 @@ class ResponseStatusLine
 {
 public:
 	ResponseStatusLine(){};
-	std::string compose();
+	int compose(HttpRequest*);
+	int get_content(std::string&);
 	~ResponseStatusLine(){};
+
+	friend class HttpResponse;
 private:
-	std::string http_version;
+	//std::string http_version;
 	ResponseStatusCode response_status_code;
+	std::ifstream response_file;
 };
 
 class ResponseHeader
 {
 public:
 	ResponseHeader(){};
-	std::string compose();
+	int compose();
+	int get_content(std::string&);
 	~ResponseHeader(){};
 };
 

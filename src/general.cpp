@@ -25,8 +25,12 @@ void GeneralHeader::parse(string &src, int &index)
 	get_value(src, index, warning, General::Header::Warning);
 }
 
-string GeneralHeader::compose()
+int GeneralHeader::compose()
 {
+}
+int GeneralHeader::get_content(string& content)
+{
+	return 0;
 }
 
 ostream& operator << (std::ostream& out, GeneralHeader &gh)

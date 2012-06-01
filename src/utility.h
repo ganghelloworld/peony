@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include "constants.h"
+#include "config.h"
 
 int require(bool b, std::string msg);
 
@@ -28,4 +29,21 @@ inline bool is_whitespace(char ch)
 		return true;
 	return false;
 }
+
+class HttpVersion
+{
+public:
+	HttpVersion(std::string);
+	HttpVersion(std::string na, int ma, int mi) : name(na), major(ma), minor(mi){};
+	inline bool is_http()
+	{
+		if(name == Peony::Protocol) return true; //case sensitive
+		else return false;
+	}
+	int compare(HttpVersion&);
+private:
+	std::string name;
+	int major;
+	int minor;
+};
 #endif //UTILITY_H

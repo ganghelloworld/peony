@@ -9,7 +9,8 @@ public:
 	GeneralHeader(){};
 	GeneralHeader(std::string &src, int &index);
 	void parse(std::string &src, int &index);
-	std::string compose();
+	int compose();
+	int get_content(std::string&);
 	~GeneralHeader(){};
 	
 	friend std::ostream& operator << (std::ostream&, GeneralHeader&);
