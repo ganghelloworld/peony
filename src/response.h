@@ -4,6 +4,7 @@
 #include <fstream>
 #include "request.h"
 #include "general.h"
+#include "entity.h"
 
 class HttpRequest;
 
@@ -36,6 +37,16 @@ public:
 	int compose();
 	int get_content(std::string&);
 	~ResponseHeader(){};
+private:
+	std::string accept_ranges;
+	std::string age;
+	std::string etag;
+	std::string location;
+	std::string proxy_authenticate;
+	std::string retry_after;
+	std::string server;
+	std::string vary;
+	std::string www_authenticate;
 };
 
 class HttpResponse
@@ -52,8 +63,9 @@ private:
 	HttpRequest *request;
 
 	ResponseStatusLine response_status_line; 
-	GeneralHeader general_header;
+	GeneralHeader* general_header;
 	ResponseHeader response_header;
+	EntityHeader entity_header;
 	std::string content;
 };
 

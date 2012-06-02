@@ -19,14 +19,17 @@ HttpResponse::~HttpResponse()
 
 HttpResponse::HttpResponse(HttpRequest *r) : request(r)
 {
+	general_header = &(request->general_header);
 	compose();
 }
 
 void HttpResponse::compose()
 {
 	response_status_line.compose(request);
-	general_header.compose();
+	general_header->compose();
 	response_header.compose();
+	if(response_status_line.response_file.is_open())
+		entity_header.compose(response_status_line.response_file);
 }
 
 void HttpResponse::add_message_body()
@@ -35,10 +38,12 @@ void HttpResponse::add_message_body()
 string& HttpResponse::get_content()
 {
 	response_status_line.get_content(content);
-	general_header.get_content(content);
+	general_header->get_content(content);
 	response_header.get_content(content);
 
-	content += Message::CRLF;
+	entity_header.get_content(content);
+
+	//content += Message::CRLF;
 
 	add_message_body();
 	string& temp = content;
@@ -47,11 +52,15 @@ string& HttpResponse::get_content()
 
 int ResponseHeader::get_content(string& content)
 {
-	return 0;
+	int temp = content.size();
+	string tag = ": ";// + Message::COLON + Message::SP;
+	if(server.size() != 0)
+		content += Response::Header::Server + tag + server + Message::CRLF;
+	return content.size() - temp;
 }
 int ResponseHeader::compose()
 {
-
+	server = Peony::Server;
 }
 
 int ResponseStatusLine::get_content(string& content)
@@ -82,8 +91,8 @@ int ResponseStatusLine::compose(HttpRequest* request)
 			{
 				path += Peony::Directory_Index;
 			}
-			ifstream response_file(path);
-			if(in.is_open()) //is a file and exist, 200
+			response_file.open(path.c_str(), ios::in);
+			if(response_file.is_open()) //is a file and exist, 200
 			{
 				response_status_code = StatusCode::OK;
 			}

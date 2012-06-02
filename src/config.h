@@ -5,6 +5,7 @@
 
 namespace Peony
 {
+	const std::string Server = "Peony/0.1";
 	const int PORT = 88;
 	const std::string Host = "127.0.0.1:" + PORT;
 	const std::string Protocol = "HTTP";

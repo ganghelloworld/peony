@@ -27,10 +27,17 @@ void GeneralHeader::parse(string &src, int &index)
 
 int GeneralHeader::compose()
 {
+	date = "Sat, 02 Jun 2012 02:14:28 GMT";
 }
 int GeneralHeader::get_content(string& content)
 {
-	return 0;
+	string tag = ": ";// + Message::COLON + Message::SP;
+	int temp = content.size();
+	if(connection.size() != 0)
+		content += General::Header::Connection + tag + connection + Message::CRLF;
+	if(date.size() != 0)
+		content += General::Header::Date + tag + date + Message::CRLF;
+	return content.size() - temp;
 }
 
 ostream& operator << (std::ostream& out, GeneralHeader &gh)

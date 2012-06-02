@@ -30,6 +30,24 @@ namespace General
 	}
 }
 
+namespace Entity
+{
+	namespace Header
+	{
+		const std::string Allow = "Allow";
+		const std::string Content_Encoding = "Content-Encoding";
+		const std::string Content_Language = "Content-Language";
+		const std::string Content_Length = "Content-Length";
+		const std::string Content_Location = "Content-Location";
+		const std::string Content_Md5 = "Content-MD5";
+		const std::string Content_Range = "Content-Range";
+		const std::string Content_Type = "Content-Type";
+		const std::string Expires = "Expires";
+		const std::string Last_Modified= "Last-Modified";
+		const std::string Exgtension_Header = "extension-header";
+	}
+}
+
 namespace Request
 {
 	const int REQUEST_LEN = 1024;
@@ -80,10 +98,18 @@ namespace StatusCode
 }
 namespace Response
 {
+	namespace Header
+	{
+		const std::string Accept_Ranges = "Accept-Ranges";
+		const std::string Age = "Age";
+		const std::string Etag = "ETag";
+		const std::string Location = "Location";
+		const std::string Proxy_Authenticate = "Proxy-Authenticate";
+		const std::string Retry_After = "Retry-After";
+		const std::string Server = "Server";
+		const std::string Vary = "Vary";
+		const std::string Www_Authenticate = "WWW-Authenticate";
+	}
 }
 
-namespace Entity
-{
-
-}
 #endif //CONSTANS_H

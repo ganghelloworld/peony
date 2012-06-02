@@ -71,6 +71,7 @@ void Httpd::loop()
 		response += "Content-Type: text/html\n\n";
 		response += content;
 		*/
+		cout << response.get_content() << endl;
 		n = write(cli_sockfd, response.get_content().c_str(), response.get_content().length());
 		close(cli_sockfd);
 		break;
