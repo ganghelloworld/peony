@@ -61,20 +61,11 @@ void Httpd::loop()
 		HttpRequest request(temp);
 		//cout << request;
 		HttpResponse response(&request);
-		/*
-		string response = "HTTP/1.1 200 OK\n";
-		string content = "Hello Gang!";
-		response += "Date: Sat, 26 May 2012 08:55:26 GMT\n";
-		response += "Server: Peony/0.1\n";
-		response += "Content-Length: " + int2string(content.length()) + "\n";
-		response += "Keep-Alive: timeout=5, max=100\nConnection: Keep-Alive\n";
-		response += "Content-Type: text/html\n\n";
-		response += content;
-		*/
+
 		cout << response.get_content() << endl;
 		n = write(cli_sockfd, response.get_content().c_str(), response.get_content().length());
 		close(cli_sockfd);
-		break;
+		//break;
 	}
 	close(sock_fd);
 }

@@ -87,11 +87,14 @@ int ResponseStatusLine::compose(HttpRequest* request)
 		{
 			string path = Peony::Directory + request->request_line.request_url;
 			DIR *dp;
+			//cout << "path=|" << path << "|" << endl;
 			if((dp = opendir(path.c_str())) != NULL) //is a directory and exist
 			{
+				if(path[path.length()-1] != '/') path += '/';
 				path += Peony::Directory_Index;
 				closedir(dp);
 			}
+			//cout << "path=|" << path << "|" << endl;
 			response_file.open(path.c_str(), ios::in);
 			if(response_file.is_open()) //is a file and exist, 200
 			{
