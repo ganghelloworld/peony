@@ -94,7 +94,8 @@ namespace Request
 }
 namespace StatusCode
 {
-	const ResponseStatusCode OK = {200, "OK"};
+	const ResponseStatusCode Ok = {200, "OK"};
+	const ResponseStatusCode Not_Found = {404, "Not Found"};
 }
 namespace Response
 {

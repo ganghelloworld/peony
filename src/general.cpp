@@ -27,7 +27,7 @@ void GeneralHeader::parse(string &src, int &index)
 
 int GeneralHeader::compose()
 {
-	date = "Sat, 02 Jun 2012 02:14:28 GMT";
+	date = current_date_time();
 }
 int GeneralHeader::get_content(string& content)
 {

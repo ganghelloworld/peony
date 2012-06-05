@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <dirent.h>
 
 using namespace std;
 
@@ -29,8 +30,7 @@ void HttpResponse::compose()
 	response_status_line.compose(request);
 	general_header->compose();
 	response_header.compose();
-	if(response_status_line.response_file.is_open())
-		entity_header.compose(response_status_line.response_file);
+	entity_header.compose(response_status_line.response_file);
 }
 
 void HttpResponse::add_message_body()
@@ -41,7 +41,6 @@ string& HttpResponse::get_content()
 	response_status_line.get_content(content);
 	general_header->get_content(content);
 	response_header.get_content(content);
-
 	entity_header.get_content(content);
 
 	//content += Message::CRLF;
@@ -87,18 +86,21 @@ int ResponseStatusLine::compose(HttpRequest* request)
 		if(request->request_line.method == Request::Method::Get)
 		{
 			string path = Peony::Directory + request->request_line.request_url;
-			//is a directory and exist
-			if(1)
+			DIR *dp;
+			if((dp = opendir(path.c_str())) != NULL) //is a directory and exist
 			{
 				path += Peony::Directory_Index;
+				closedir(dp);
 			}
 			response_file.open(path.c_str(), ios::in);
 			if(response_file.is_open()) //is a file and exist, 200
 			{
-				response_status_code = StatusCode::OK;
+				response_status_code = StatusCode::Ok;
 			}
 			else //404 : not found
 			{
+				response_file.open((Peony::Not_Found).c_str(), ios::in);
+				response_status_code = StatusCode::Not_Found;
 			}
 		}
 		else
@@ -109,4 +111,7 @@ int ResponseStatusLine::compose(HttpRequest* request)
 	{
 		return -1;
 	}
+}
+ResponseStatusLine::~ResponseStatusLine()
+{
 }

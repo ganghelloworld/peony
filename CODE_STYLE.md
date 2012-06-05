@@ -18,3 +18,8 @@ Const_String
 -----------------
 Hello
 Hello_String
+
+Const_User_Defined_Class
+--------------------------
+Hello
+Hello_String

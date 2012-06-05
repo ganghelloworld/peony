@@ -21,7 +21,7 @@ public:
 	ResponseStatusLine(){};
 	int compose(HttpRequest*);
 	int get_content(std::string&);
-	~ResponseStatusLine(){};
+	~ResponseStatusLine();
 
 	friend class HttpResponse;
 private:

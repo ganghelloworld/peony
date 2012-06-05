@@ -15,6 +15,7 @@ namespace Peony
 
 	const std::string Directory = "/Users/gang/program/c-family/peony/www";
 	const std::string Directory_Index = "index.html";
+	const std::string Not_Found = Directory + "/not_found.html";
 }
 
 #endif //CONFIG_H

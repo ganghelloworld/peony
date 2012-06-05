@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <time.h>
 #include "constants.h"
 #include "config.h"
 
@@ -13,6 +14,17 @@ inline std::string int2string(int a)
 	std::stringstream ss;
 	ss << a;
 	return ss.str();
+}
+
+inline std::string current_date_time()
+{
+	time_t rawtime;
+	struct tm * timeinfo;
+	char buf[32];
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(buf, sizeof(buf), "%a, %d %b %Y %X GMT", timeinfo);
+	return std::string(buf);
 }
 
 int string_cut(std::string&, int &, std::string& , std::string end_tag);
