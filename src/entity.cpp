@@ -1,5 +1,6 @@
 #include "entity.h"
 #include "constants.h"
+#include "utility.h"
 #include <iostream>
 #include <cstring>
 
@@ -16,11 +17,10 @@ int EntityHeader::compose(ifstream& in)
 int EntityHeader::get_content(string& content)
 {
 	int temp = content.size();
-	string tag = ": ";	
+	string tag = string("") + Message::COLON + Message::SP;	
 	if(content_length >= 0)
 	{
-		content += Entity::Header::Content_Length + tag + "22" + Message::CRLF;
-	//	content += content_length + Message::CRLF;
+		content += Entity::Header::Content_Length + tag + int2string(content_length) + Message::CRLF;
 	}
 	if(content_type.size() != 0)
 		content += Entity::Header::Content_Type + tag + content_type + Message::CRLF;

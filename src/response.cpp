@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -53,7 +54,7 @@ string& HttpResponse::get_content()
 int ResponseHeader::get_content(string& content)
 {
 	int temp = content.size();
-	string tag = ": ";// + Message::COLON + Message::SP;
+	string tag = string("") + Message::COLON + Message::SP;
 	if(server.size() != 0)
 		content += Response::Header::Server + tag + server + Message::CRLF;
 	return content.size() - temp;
@@ -66,7 +67,7 @@ int ResponseHeader::compose()
 int ResponseStatusLine::get_content(string& content)
 {
 	content += Peony::Http_Version + Message::SP;
-	content += response_status_code.num + Message::SP;
+	content += int2string(response_status_code.num) + Message::SP;
 	content += response_status_code.desc + Message::CRLF;
 	return 0;
 }

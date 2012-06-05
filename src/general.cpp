@@ -31,7 +31,7 @@ int GeneralHeader::compose()
 }
 int GeneralHeader::get_content(string& content)
 {
-	string tag = ": ";// + Message::COLON + Message::SP;
+	string tag = string("") + Message::COLON + Message::SP;
 	int temp = content.size();
 	if(connection.size() != 0)
 		content += General::Header::Connection + tag + connection + Message::CRLF;
