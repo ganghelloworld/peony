@@ -25,13 +25,23 @@ public:
 	int num;
 };
 
+
+/*
+ * Singleton
+ *
+*/
 class ThreadPool
 {
-public:
+private:
 	ThreadPool();
+	ThreadPool(const ThreadPool&){};
+	ThreadPool& operator=(const ThreadPool&){};
+public:
+	static ThreadPool* Instance();
 	~ThreadPool();
 	void add_task(Task*);
 public:
+	static ThreadPool *thread_pool;
 	static void* thread_routine(void*);
 	pthread_mutex_t lock;
 	pthread_cond_t cond;
@@ -43,5 +53,4 @@ public:
 	int cur_task_num;
 	bool shutdown;
 };
-
 #endif //THREAD_POOL_H

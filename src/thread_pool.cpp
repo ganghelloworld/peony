@@ -5,6 +5,8 @@
 
 using namespace std;
 
+ThreadPool* ThreadPool::thread_pool = NULL;
+
 ThreadPool::ThreadPool()
 {
 	max_thread_num = Peony::INIT_THREAD_NUM;
@@ -21,6 +23,15 @@ ThreadPool::ThreadPool()
 		require(rt == 0, "pthread_create_error");
 		threads[i].num = i;
 	}
+}
+
+ThreadPool* ThreadPool::Instance()
+{
+	if(thread_pool == NULL)
+	{
+		thread_pool = new ThreadPool();
+	}
+	return thread_pool;
 }
 
 ThreadPool::~ThreadPool()
@@ -78,11 +89,12 @@ Task::~Task()
 }
 void Task::action()
 {
-	int n = 0;
-	while(n < 10)
+	/*
+	for(int i = 1; i <= 15; i ++)
 	{
-		cout << "\t" << pthread_self() << endl;
+		cout << "\t" << i << "\t" << pthread_self() << endl;
 		sleep(1);
 	}
+	*/
 	httpd->response(recv, cli_sockfd);
 }

@@ -47,7 +47,6 @@ void Httpd::loop()
 	listen(sock_fd, 5);
 	char buffer[Request::REQUEST_LEN];
 
-	ThreadPool thread_pool;
 	while(1)	
 	{
 		socklen_t cli_len = sizeof(cli_addr);
@@ -63,7 +62,7 @@ void Httpd::loop()
 		string *temp = new string(buffer, n);
 		//response(temp, cli_sockfd);
 		Task *task = new Task(this, temp, cli_sockfd);
-		thread_pool.add_task(task);		
+		ThreadPool::Instance()->add_task(task);		
 	}
 	close(sock_fd);
 }
