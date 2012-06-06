@@ -15,13 +15,13 @@ bool HttpRequest::parse(string &src)
 	int index = 0;
 	string_trim_header(src);
 	if(!request_line.parse(src, index)) return false;
-	cout << request_line;
+	//cout << request_line;
 
 	general_header.parse(src, index);
-	cout << general_header;
+	//cout << general_header;
 
 	request_header.parse(src, index);
-	cout << request_header;
+	//cout << request_header;
 	return true;
 }
 std::ostream& operator <<(std::ostream &out, HttpRequest& hr)

@@ -4,6 +4,7 @@
 #include "utility.h"
 #include "request.h"
 #include "response.h"
+#include "thread_pool.h"
 
 #include <cstring>
 #include <string>
@@ -45,6 +46,8 @@ void Httpd::loop()
 	require(ret >= 0, "Failed bind");
 	listen(sock_fd, 5);
 	char buffer[Request::REQUEST_LEN];
+
+	ThreadPool thread_pool;
 	while(1)	
 	{
 		socklen_t cli_len = sizeof(cli_addr);
@@ -54,22 +57,22 @@ void Httpd::loop()
 		bzero(buffer, Request::REQUEST_LEN);
 		int n = read(cli_sockfd, buffer, Request::REQUEST_LEN - 1);
 		require(n >= 0, "Failed read");
-		cout << "request len = " << n << endl;
-		cout << buffer << endl;
+		//cout << "request len = " << n << endl;
+		//cout << buffer << endl;
 
-		string temp(buffer, n);
-		HttpRequest request(temp);
-		//cout << request;
-		HttpResponse response(&request);
-
-		cout << response.get_content() << endl;
-		n = write(cli_sockfd, response.get_content().c_str(), response.get_content().length());
-		close(cli_sockfd);
-		//break;
+		string *temp = new string(buffer, n);
+		//response(temp, cli_sockfd);
+		Task *task = new Task(this, temp, cli_sockfd);
+		thread_pool.add_task(task);		
 	}
 	close(sock_fd);
 }
 
-void Httpd::response()
+void Httpd::response(string *recv, int cli_sockfd)
 {
+	HttpRequest request(*recv);
+	//cout << request;
+	HttpResponse resp(&request);
+	int n = write(cli_sockfd, resp.get_content().c_str(), resp.get_content().length());
+	close(cli_sockfd);
 }
